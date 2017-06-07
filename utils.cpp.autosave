@@ -1,0 +1,26 @@
+#include "utils.h"
+#include <cstring>
+#include <random>
+#include <QDebug>
+#include <QTime>
+#include <QtGlobal>
+
+utils::utils()
+{
+
+}
+char* utils::genRandomString(int length)
+{
+    const char *c = "0123456789abcdefghijklmnopqrstuvwxyz";    //可填充的字符
+    char* MsgBuffer = new char[length+1];       //定义一个length长度的字符数组
+    memset(MsgBuffer, 0, length+1);      //初始化数组，都置零
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    for (int i = 0; i < length;i++)
+    {
+        int index = qrand() % strlen(c);
+        MsgBuffer[i] = c[index];
+    }
+    MsgBuffer[length] = '\0';
+    qDebug()<<"utils:"<<MsgBuffer;
+    return MsgBuffer;
+}
